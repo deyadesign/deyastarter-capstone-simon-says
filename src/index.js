@@ -7,6 +7,12 @@
  const statusSpan = document.querySelector(".js-status"); 
  const heading = document.querySelector(".js-heading");
  const padContainer = document.querySelector(".js-pad-container");
+
+ const greenPad = document.querySelector(".js-pad-green");
+ const redPad = document.querySelector(".js-pad-red");
+ const bluePad = document.querySelector(".js-pad-blue");
+ const yellowPad = document.querySelector(".js-pad-yellow");
+
 /**
  * VARIABLES
  */
@@ -175,7 +181,10 @@ function setLevel(level = 1) {
  * getRandomItem([1, 2, 3, 4]) //> returns 2
  * getRandomItem([1, 2, 3, 4]) //> returns 1
  */
+
+  
 function getRandomItem(collection) {
+
   if (collection.length === 0) return null;
   const randomIndex = Math.floor(Math.random() * collection.length);
   return collection[randomIndex];
@@ -226,10 +235,8 @@ function activatePad(color) {
  */
 
 function activatePads(sequence) {
-  sequence.forEach((color, index) => {
-    setTimeout(() => {activatePad(color)
-    }, (index + 1) * 600)
-  })
+  sequence.forEach((color, index) => { setTimeout(()=>{activatePad(color)}, 600*(index + 1));
+  });
 }
 
 /**
