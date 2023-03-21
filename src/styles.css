@@ -77,6 +77,7 @@ h1 {
 .pad-red:focus {
   background-color: #e1b871;
   transform: rotate(-5deg);
+  box-shadow: inset 0px 0px 0px 4px rgb(247, 31, 168)
 }
 
 .pad-red:active,
@@ -88,12 +89,13 @@ h1 {
 .pad-green {
   border-radius: 50px 50px 50px 50px;
   background-color: green;
-}
+  }
 
 .pad-green:hover,
 .pad-green:focus {
   background-color: #8cc218;
   transform: rotate(5deg);
+  box-shadow: inset 0px 0px 0px 4px rgb(247, 31, 168);
 }
 
 .pad-green:active,
@@ -111,6 +113,7 @@ h1 {
 .pad-yellow:focus {
   background-color: #ffb900;
   transform: rotate(5deg);
+  box-shadow: inset 0px 0px 0px 4px rgb(247, 31, 168)
 }
 
 .pad-yellow:active,
@@ -128,6 +131,7 @@ h1 {
 .pad-blue:focus {
   background-color: #19efff;
   transform: rotate(5deg);
+  box-shadow: inset 0px 0px 0px 4px rgb(247, 31, 168)
 }
 
 .pad-blue:active,
