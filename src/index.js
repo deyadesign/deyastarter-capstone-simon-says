@@ -257,11 +257,17 @@ function activatePads(sequence) {
  */
 function playComputerTurn() {
   padContainer.classList.add('unclickable');
-  statusSpan.innerHTML = "The computer's turn...";
-  heading.innerHTML = `Round ${roundCount} of ${maxRoundCount}`;
-  computerSequence.push(getRandomItem(pads.color));
+  
+  setText(statusSpan, "The computer's turn...");
+  setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
+
+  const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+
+  computerSequence.push(randomColor);
+
   activatePads(computerSequence);
-  setTimeout(playHumanTurn, roundCount * 600 + 1000); // 5
+  const totalDuration = roundCount * 600;
+  setTimeout(() => playHumanTurn(roundCount), totalDuration + 1000); // 5
 }
 
 /**
@@ -273,12 +279,7 @@ function playComputerTurn() {
  */
 function playHumanTurn() {
   padContainer.classList.remove('unclickable');
-  let remainingPresses = computerSequence.length - playerSequence.length;
-  if (remainingPresses ==1){
-    setText(statusSpan, "Player's turn: 1 press left");
-  } else {
-    setText(statusSpan, `Player's turn: ${remainingPresses} presses left`);
-  }
+  setText(statusSpan, `Your turn: ${maxRoundCount - roundCount + 1} presses left`);
 }
 
 
@@ -363,7 +364,7 @@ function resetGame(text) {
   
  
   alert(text);
-  setText(heading, "Simon has spoken");
+  setText(heading, "Simon says Play again!");
   startButton.classList.remove("hidden");
   statusSpan.classList.add("hidden");
   padContainer.classList.add("unclickable");
