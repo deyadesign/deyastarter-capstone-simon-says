@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Microbe&display=swap');
 
 html {
-  background: url('../assets/background.png') no-repeat center center fixed;
+  background: url('../assets/cosmic-background.jpg') no-repeat center center fixed;
   box-sizing: border-box;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -70,7 +70,7 @@ h1 {
 
 .pad-red {
   border-radius: 50px 50px 50px 50px;
-  background-color: red;
+  background-color:orange;
 }
 
 .pad-red:hover,

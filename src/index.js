@@ -256,7 +256,7 @@ function activatePads(sequence) {
  * sequence.
  */
 function playComputerTurn() {
-  padContainer.classList.add("unclickable");
+  padContainer.classList.add('unclickable');
   statusSpan.innerHTML = "The computer's turn...";
   heading.innerHTML = `Round ${roundCount} of ${maxRoundCount}`;
   computerSequence.push(getRandomItem(pads.color));
@@ -272,7 +272,7 @@ function playComputerTurn() {
  * 2. Display a status message showing the player how many presses are left in the round
  */
 function playHumanTurn() {
-  padContainer.classList.remove("unclickable");
+  padContainer.classList.remove('unclickable');
   let remainingPresses = computerSequence.length - playerSequence.length;
   if (remainingPresses ==1){
     setText(statusSpan, "Player's turn: 1 press left");
@@ -341,11 +341,12 @@ function checkPress(color) {
 function checkRound() {
   if (playerSequence.length === maxRoundCount) {
     resetGame ("Yay! You did it!", true);
+    return;
   } else {
-    roundCount++
-    playerSequence = []
-    setText(statusSpan, "Great job!")
-    setText(playComputerTurn, 1000)
+    roundCount++;
+    playerSequence = [];
+    setText(statusSpan, "Great job!");
+    setTimeout(playComputerTurn, 1000);
   }
 }
 
