@@ -281,10 +281,9 @@ function playComputerTurn() {
  * 2. Display a status message showing the player how many presses are left in the round
  */
 function playHumanTurn() {
-  padContainer.classList.remove('unclickable');
-  setText(statusSpan, `Your turn: ${maxRoundCount - roundCount + 1} presses left`);
+  padContainer.classList.remove("unclickable");
+  statusSpan.innerHTML = "Player turn";
 }
-
 
 /**
  * Checks the player's selection every time the player presses on a pad during
@@ -309,21 +308,21 @@ function playHumanTurn() {
  *
  */
 function checkPress(color) {
-  playerSequence.push(color)
-   const index = playerSequence.length - 1
-
-  let remainingPresses = computerSequence.length - playerSequence.length
-  if (remainingPresses ===1) {
-   setText(statusSpan, `Player's turn: ${remainingPresses} presses left`)
-  } else if (remainingPresses >1) {
-    setText(statusSpan, `Player's turn: ${remainingPresses} presses left`)
-  }
+  playerSequence.push(color);
+  let index = playerSequence.length - 2;
+  let remainingPresses = computerSequence.length - playerSequence.length;
+  setText(statusSpan, remainingPresses + " remaining presses");
   if (playerSequence[index] !== computerSequence[index]) {
-    resetGame("Oh no! Try again!")
-  } else if (remainingPresses === 0) {
-    checkRound()
+    resetGame("Oh no! Try again!");
+    return;
+  }
+
+  if (remainingPresses === 0) {
+    checkRound();
   }
 }
+
+
 
  
 
@@ -364,8 +363,9 @@ function checkRound() {
  * 3. Reset `roundCount` to an empty array
  */
 function resetGame(text) {
-  
- 
+  computerSequence = [];
+  playerSequence = [];
+  roundCount = [];
   alert(text);
   setText(heading, "Simon says Play again!");
   startButton.classList.remove("hidden");
