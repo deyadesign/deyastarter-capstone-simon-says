@@ -82,7 +82,7 @@ startButton.addEventListener("click",startButtonHandler);
  */
 function startButtonHandler() {
   setLevel();
-  roundCount = roundCount + 1;
+  roundCount ++
   startButton.classList.add("hidden");
   statusSpan.classList.remove("hidden");
   playComputerTurn();
@@ -108,9 +108,11 @@ function startButtonHandler() {
  */
 function padHandler(event) {
   const { color } = event.target.dataset;
-  if (!color) return;
-
-  // TODO: Write your code here.
+  if (!color) return
+  const pad = pads.find((element) => element.color === color)
+  pad.sound.play()
+  checkPress(color)
+  
   return color;
 }
 
@@ -141,13 +143,17 @@ function padHandler(event) {
  */
 function setLevel(level = 1) {
   
-  if (level === 1) {
+  if (level == 1 || null) {
+    maxRoundCount =8
     return 8;
-  } else if (level === 2) {
+    } else if (level == 2) {
+    maxRoundCount = 14
     return 14;
-  } else if (level === 3) {
+  } else if (level == 3) {
+    maxRoundCount = 20
     return 20;
-  } else if (level === 4) {
+  } else if (level == 4) {
+    maxRoundCount = 31
     return 31;
   } else {
     return "Please enter level 1, 2, 3, or 4";
@@ -220,9 +226,10 @@ function activatePad(color) {
  */
 
 function activatePads(sequence) {
-  sequence.forEach(function (element, index) {
-    setTimeout(() => activatePad(element), 600 * (index + 1));
-  });
+  sequence.forEach((color, index) => {
+    setTimeout(() => {activatePad(color)
+    }, (index + 1) * 600)
+  })
 }
 
 /**
@@ -248,13 +255,13 @@ function activatePads(sequence) {
  * to the current round (roundCount) multiplied by 600ms which is the duration for each pad in the
  * sequence.
  */
- function playComputerTurn() {
+function playComputerTurn() {
   padContainer.classList.add("unclickable");
   statusSpan.innerHTML = "The computer's turn...";
   heading.innerHTML = `Round ${roundCount} of ${maxRoundCount}`;
   computerSequence.push(getRandomItem(pads.color));
   activatePads(computerSequence);
-  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
+  setTimeout(playHumanTurn, roundCount * 600 + 1000); // 5
 }
 
 /**
@@ -265,8 +272,15 @@ function activatePads(sequence) {
  * 2. Display a status message showing the player how many presses are left in the round
  */
 function playHumanTurn() {
-  // TODO: Write your code here.
+  padContainer.classList.remove("unclickable");
+  let remainingPresses = computerSequence.length - playerSequence.length;
+  if (remainingPresses ==1){
+    setText(statusSpan, "Player's turn: 1 press left");
+  } else {
+    setText(statusSpan, `Player's turn: ${remainingPresses} presses left`);
+  }
 }
+
 
 /**
  * Checks the player's selection every time the player presses on a pad during
@@ -291,8 +305,23 @@ function playHumanTurn() {
  *
  */
 function checkPress(color) {
-  // TODO: Write your code here.
+  playerSequence.push(color)
+   const index = playerSequence.length - 1
+
+  let remainingPresses = computerSequence.length - playerSequence.length
+  if (remainingPresses ===1) {
+   setText(statusSpan, `Player's turn: ${remainingPresses} presses left`)
+  } else if (remainingPresses >1) {
+    setText(statusSpan, `Player's turn: ${remainingPresses} presses left`)
+  }
+  if (playerSequence[index] !== computerSequence[index]) {
+    resetGame("Oh no! Try again!")
+  } else if (remainingPresses === 0) {
+    checkRound()
+  }
 }
+
+ 
 
 /**
  * Checks each round to see if the player has completed all the rounds of the game * or advance to the next round if the game has not finished.
@@ -310,7 +339,14 @@ function checkPress(color) {
  */
 
 function checkRound() {
-  // TODO: Write your code here.
+  if (playerSequence.length === maxRoundCount) {
+    resetGame ("Yay! You did it!", true);
+  } else {
+    roundCount++
+    playerSequence = []
+    setText(statusSpan, "Great job!")
+    setText(playComputerTurn, 1000)
+  }
 }
 
 /**
