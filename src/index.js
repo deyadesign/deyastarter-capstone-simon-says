@@ -311,7 +311,7 @@ function checkPress(color) {
   playerSequence.push(color);
   let index = playerSequence.length - 2;
   let remainingPresses = computerSequence.length - playerSequence.length;
-  setText(statusSpan, remainingPresses + " remaining presses");
+  setText(statusSpan, remainingPresses + "remaining presses");
   if (playerSequence[index] !== computerSequence[index]) {
     resetGame("Oh no! Try again!");
     return;
